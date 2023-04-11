@@ -142,10 +142,22 @@ pub async fn handle_vector_scaling(
 ) {
     match db.get(key.clone()) {
         Some(_vector) => {
-            let result = db.vector_scaling(&key, scalar);
-            let response = format!("Result: {:?}\n", result);
-            if let Err(_) = writer.write_all(response.as_bytes()).await {
-                println!("Error sending response to client");
+            // Perform vector scaling using the retrieved key and the provided scalar
+            match db.vector_scaling(&key, scalar) {
+                Some(result) => {
+                    // Format and send the result to the client
+                    let response = format!("Result: {:?}\n", result);
+                    if let Err(_) = writer.write_all(response.as_bytes()).await {
+                        println!("Error sending response to client");
+                    }
+                }
+                None => {
+                    // Handle the case where vector scaling failed (e.g., due to invalid scalar)
+                    let response = format!("Error: Vector scaling failed\n");
+                    if let Err(_) = writer.write_all(response.as_bytes()).await {
+                        println!("Error sending response to client");
+                    }
+                }
             }
         }
         None => {
