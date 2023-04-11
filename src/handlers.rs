@@ -205,3 +205,20 @@ pub async fn handle_error(error_msg: &str, writer: &mut WriteHalf<'_>) {
         println!("Error sending response to client");
     }
 }
+
+pub async fn handle_dump(db: &mut Vemcache, file_path: String, writer: &mut WriteHalf<'_>) {
+    match db.dump(&file_path) {
+        Ok(_) => {
+            let response = format!("Database dump successful: {}\n", file_path);
+            if let Err(_) = writer.write_all(response.as_bytes()).await {
+                println!("Error sending response to client");
+            }
+        }
+        Err(err) => {
+            let response = format!("Error creating database dump: {}\n", err);
+            if let Err(_) = writer.write_all(response.as_bytes()).await {
+                println!("Error sending response to client");
+            }
+        }
+    }
+}

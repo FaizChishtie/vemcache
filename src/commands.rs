@@ -32,6 +32,9 @@ pub enum Command {
     /// The `CosineSimilarity` command is used to calculate the cosine similarity between two vectors.
     /// Parameters: Keys (Strings) of the two vectors to be compared.
     CosineSimilarity(String, String),
+    /// The `Dump` command is used to create a JSON dump of the database.
+    /// The server responds with a success or error message based on the result.
+    Dump(String),
 }
 
 pub fn parse_command(input: &str) -> Result<Command, &str> {
@@ -112,6 +115,13 @@ pub fn parse_command(input: &str) -> Result<Command, &str> {
             let key1 = tokens.get(1).ok_or("Missing key1")?.to_string();
             let key2 = tokens.get(2).ok_or("Missing key2")?.to_string();
             Ok(Command::CosineSimilarity(key1, key2))
+        }
+        "dump" => {
+            if tokens.len() != 2 {
+                return Err("Invalid DUMP command");
+            }
+            let file_path = tokens[1].to_string();
+            Ok(Command::Dump(file_path))
         }
         _ => Err("Unknown command"),
     }

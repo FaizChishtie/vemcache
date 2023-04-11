@@ -53,6 +53,9 @@ async fn handle_client(mut stream: tokio::net::TcpStream, db: &mut Vemcache) {
             Ok(commands::Command::CosineSimilarity(key1, key2)) => {
                 handle_cosine_similarity(db, key1, key2, &mut writer).await;
             }
+            Ok(commands::Command::Dump(file_path)) => {
+                handle_dump(db, file_path, &mut writer).await;
+            }
             Err(error_msg) => {
                 handle_error(error_msg, &mut writer).await;
             }

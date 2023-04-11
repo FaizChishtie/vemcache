@@ -4,6 +4,11 @@ use uuid::Uuid;
 type VectorId = String;
 type Vector = Vec<f32>;
 
+use serde::Serialize;
+use std::fs::File;
+use std::io::Result as IoResult;
+
+#[derive(Serialize)]
 pub struct Vemcache {
     storage: HashMap<VectorId, Vector>,
 }
@@ -397,5 +402,44 @@ impl Vemcache {
         let magnitude_v1 = (v1.iter().map(|x| x.powi(2)).sum::<f32>()).sqrt();
         let magnitude_v2 = (v2.iter().map(|x| x.powi(2)).sum::<f32>()).sqrt();
         Some(dot_product / (magnitude_v1 * magnitude_v2))
+    }
+
+    /// Dumps the contents of the Vemcache database to a JSON file.
+    ///
+    /// This function serializes the entire contents of the database (i.e., the `storage` field)
+    /// into a JSON file specified by the `file_path` argument.
+    ///
+    /// # Arguments
+    ///
+    /// * `file_path` - The path to the file where the database dump will be written.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// # use vemcache::Vemcache;
+    /// let mut db = Vemcache::new();
+    ///
+    /// // Insert some vectors into the database
+    /// db.insert_with_key("vector1".to_string(), vec![1.0, 2.0, 3.0]);
+    /// db.insert_with_key("vector2".to_string(), vec![4.0, 5.0, 6.0]);
+    ///
+    /// // Dump the database to a file
+    /// match db.dump("vemcache_dump.json") {
+    ///     Ok(_) => println!("Database dump successful."),
+    ///     Err(err) => eprintln!("Error creating database dump: {}", err),
+    /// }
+    /// ```
+    ///
+    /// # Errors
+    ///
+    /// Returns an `IoResult<()>` to indicate whether the operation was successful or if there was an I/O error.
+    pub fn dump(&self, file_path: &str) -> IoResult<()> {
+        // Open the file for writing
+        let file = File::create(file_path)?;
+
+        // Serialize the storage field into JSON format and write it to the file
+        serde_json::to_writer(file, &self.storage)?;
+
+        Ok(())
     }
 }

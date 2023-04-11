@@ -143,6 +143,14 @@ To scale a vector by a scalar value, use the vscale command followed by the key 
 vscale vector1 2.0
 ```
 
+### Dumping the Database
+
+To dump the database to a JSON file, use the dump command followed by the path to the file:
+
+```bash
+dump vemcache.json
+```
+
 ### Closing the Connection
 
 To exit the client, press Ctrl+C or type quit (if using telnet).
@@ -194,6 +202,10 @@ OK
 # User attempts to retrieve "vector_a" again (expecting an error)
 get vector_a
 null
+
+# Dump vemcache db
+dump vemcache.json
+Database dump successful: vemcache.json
 
 # User exits the session
 quit

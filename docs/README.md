@@ -26,6 +26,8 @@ Vemcache supports a variety of commands to interact with vector data. Below is a
 
 `vcosine` [key1] [key2]: Calculate the cosine similarity between two vectors. Provide the keys of the two vectors to be compared.
 
+`dump` [filename]: Dump Vemcache DB to a JSON file.
+
 ## Usage
 
 To use Vemcache, connect to the server using a TCP client like telnet or nc. Once connected, you can send commands to interact with the server.
@@ -73,4 +75,7 @@ vscale vector1 2.0
 
 # Calculate cosine similarity between vectors with keys "vector1" and "vector2"
 vcosine vector1 vector2
+
+# Dump vemcache db
+dump vemcache.json
 ```
