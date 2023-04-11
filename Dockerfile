@@ -19,8 +19,11 @@ RUN apt-get update && apt-get install -y ca-certificates && rm -rf /var/lib/apt/
 # Copy the Vemcache binary from the builder image
 COPY --from=builder /usr/src/vemcache/target/release/vemcache /usr/local/bin/vemcache
 
-# Expose the port that Vemcache will use (change this if you're using a different port)
-EXPOSE 7070
+# Set the default value for VEMCACHE_PORT
+ENV VEMCACHE_PORT=7070
+
+# Expose the default port if no VEMCACHE_PORT is provided
+EXPOSE $VEMCACHE_PORT
 
 # Start the Vemcache server when the container is run
 CMD ["vemcache"]

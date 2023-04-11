@@ -1,13 +1,6 @@
 # Vemcache
 
-Vemcache is a simple, lightweight, and efficient vector database inspired by Redis. It is designed for managing high-dimensional vector data in various applications, including machine learning, similarity search, and recommendation systems. Vemcache offers a straightforward solution for in-memory storage and retrieval of vector data.
-
-## Features
-
-- **Efficient in-memory storage**: Vemcache stores vector data in memory, resulting in low-latency access and fast operations.
-- **Simple and easy-to-use**: The command syntax and API are designed for simplicity and ease of use, making it easy to integrate Vemcache into your projects.
-- **Scalable**: Vemcache can handle large amounts of vector data and is built to scale with your application's needs.
-- **Extensible**: The modular architecture allows for easy extension and customization of Vemcache's capabilities.
+Vemcache is an in-memory vector database.
 
 ## Getting Started
 
@@ -28,6 +21,26 @@ cd vemcache
 
 ```bash
 make build
+```
+
+3. Run Vemcache
+
+```bash
+make run
+```
+
+4. Use Vemcache
+
+Use `telnet` to connect to Vemcache
+
+```bash
+telnet 0.0.0.0 7070
+```
+
+Or use `nc`
+
+```bash
+nc 0.0.0.0 7070
 ```
 
 ## Example

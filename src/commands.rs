@@ -1,14 +1,37 @@
+/// Represents the various commands that can be executed by the Vemcache server.
+/// Each variant corresponds to a specific command and its associated parameters.
 pub enum Command {
+    /// The `Ping` command is used to check the connection to the Vemcache server.
+    /// The server responds with "pong" when it receives this command.
     Ping,
+    /// The `Insert` command is used to insert a vector into the database.
+    /// The server generates a unique identifier (UUID) for the vector.
+    /// Parameters: Vector to be inserted.
     Insert(Vec<f32>),
+    /// The `NamedInsert` command is used to insert a vector into the database with a specified key.
+    /// Parameters: Key (String) and Vector to be inserted.
     NamedInsert(String, Vec<f32>),
+    /// The `Get` command is used to retrieve a vector from the database using its key.
+    /// Parameters: Key (String) of the vector to be retrieved.
     Get(String),
+    /// The `Remove` command is used to remove a vector from the database using its key.
+    /// Parameters: Key (String) of the vector to be removed.
     Remove(String),
-    KNearestNeighbors(String, usize), // KNN with key and k value
-    VectorAddition(String, String),   // VAdd with two keys
-    VectorSubtraction(String, String),// VSub with two keys
-    VectorScaling(String, f32),       // VScale with key and scalar
-    CosineSimilarity(String, String), // VCosine with two keys
+    /// The `KNearestNeighbors` command is used to find the k nearest neighbors of a vector.
+    /// Parameters: Key (String) of the query vector and k value (usize) specifying the number of neighbors.
+    KNearestNeighbors(String, usize),
+    /// The `VectorAddition` command is used to perform element-wise addition of two vectors.
+    /// Parameters: Keys (Strings) of the two vectors to be added.
+    VectorAddition(String, String),
+    /// The `VectorSubtraction` command is used to perform element-wise subtraction of two vectors.
+    /// Parameters: Keys (Strings) of the two vectors to be subtracted.
+    VectorSubtraction(String, String),
+    /// The `VectorScaling` command is used to scale a vector by a scalar value.
+    /// Parameters: Key (String) of the vector to be scaled and the scalar value (f32).
+    VectorScaling(String, f32),
+    /// The `CosineSimilarity` command is used to calculate the cosine similarity between two vectors.
+    /// Parameters: Keys (Strings) of the two vectors to be compared.
+    CosineSimilarity(String, String),
 }
 
 pub fn parse_command(input: &str) -> Result<Command, &str> {
