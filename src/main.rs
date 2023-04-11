@@ -63,6 +63,7 @@ async fn handle_client(mut stream: tokio::net::TcpStream, db: &mut Vemcache) {
 #[tokio::main]
 async fn main() {
     dotenv().ok();
+    const VERSION: &str = env!("CARGO_PKG_VERSION");
 
     let host = dotenv::var("VEMCACHE_HOST").unwrap_or_else(|_| "0.0.0.0".to_string());
     let port = dotenv::var("VEMCACHE_PORT").unwrap_or_else(|_| "7070".to_string());
@@ -72,7 +73,7 @@ async fn main() {
 
     let mut db = Vemcache::new();
 
-    println!("Vemcache listening on {}", addr);
+    println!("Vemcache v{} listening on {}", VERSION, addr);
 
     loop {
         let (stream, _) = listener.accept().await.unwrap();
