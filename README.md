@@ -81,28 +81,3 @@ Or use `nc`
 ```bash
 nc 0.0.0.0 7070
 ```
-
-
-## Example
-
-```
-fn main() {
-    let mut db = Vemcache::new();
-
-    let v1 = vec![0.0, 1.0, 2.0];
-    let v2 = vec![1.0, 2.0, 3.0];
-    let v3 = vec![2.0, 3.0, 4.0];
-
-    let id1 = db.insert(v1.clone());
-    let id2 = db.insert(v2.clone());
-    let id3 = db.insert(v3.clone());
-
-    let query_vector = vec![0.5, 1.5, 2.5];
-    let (nearest_id, nearest_vector) = db.nearest_neighbor(&query_vector).unwrap();
-
-    println!(
-        "The nearest vector to {:?} is {:?} with id {}",
-        query_vector, nearest_vector, nearest_id
-    );
-}
-```
