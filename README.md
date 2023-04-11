@@ -66,7 +66,7 @@ make build
 make run
 ```
 
-### Using Vemcache
+## Using Vemcache
 
 Connect to Vemcache with a TCP client like `telnet` or `nc`.
 
@@ -81,3 +81,70 @@ Or use `nc`
 ```bash
 nc 0.0.0.0 7070
 ```
+
+Once connected, you can interact with the Vemcache server by sending commands.
+
+### Inserting Vectors
+To insert a vector into the database, use the insert command followed by the vector values:
+
+```bash
+insert 0.5 0.7 0.2
+```
+To insert a vector with a specified key, use the named_insert command followed by the key and vector values:
+
+```bash
+named_insert my_vector 0.5 0.7 0.2
+```
+
+### Retrieving Vectors
+To retrieve a vector from the database using its key, use the get command followed by the key:
+
+```bash
+get my_vector
+```
+
+### Removing Vectors
+
+To remove a vector from the database using its key, use the remove command followed by the key:
+
+```bash
+remove my_vector
+```
+
+### Performing Vector Operations
+
+To calculate the cosine similarity between two vectors, use the vcosine command followed by the keys of the two vectors:
+
+```bash
+vcosine vector1 vector2
+```
+
+To find the k nearest neighbors of a vector, use the knn command followed by the key of the query vector and the value of k:
+
+```bash
+knn query_vector 3
+```
+
+To perform element-wise addition of two vectors, use the vadd command followed by the keys of the two vectors:
+
+```bash
+vadd vector1 vector2
+```
+
+To perform element-wise subtraction of two vectors, use the vsub command followed by the keys of the two vectors:
+
+```bash
+vsub vector1 vector2
+```
+
+To scale a vector by a scalar value, use the vscale command followed by the key of the vector and the scalar value:
+
+```bash
+vscale vector1 2.0
+```
+
+### Closing the Connection
+
+To exit the client, press Ctrl+C or type quit (if using telnet).
+
+This concludes the basic usage of Vemcache for vector operations. For more advanced operations and detailed explanations of each command, refer to the [Vemcache documentation](vemcache.com).
