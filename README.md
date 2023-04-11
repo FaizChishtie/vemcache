@@ -148,3 +148,54 @@ vscale vector1 2.0
 To exit the client, press Ctrl+C or type quit (if using telnet).
 
 This concludes the basic usage of Vemcache for vector operations. For more advanced operations and detailed explanations of each command, refer to the [Vemcache documentation](vemcache.com).
+
+### Example Session
+
+```bash
+# User connects to Vemcache using telnet
+$ telnet 0.0.0.0 7070
+Trying 0.0.0.0...
+Connected to 0.0.0.0.
+Escape character is '^]'.
+
+# User inserts a vector with the key "vector_a"
+named_insert vector_a 0.5 0.7 0.2
+OK
+
+# User inserts another vector with the key "vector_b"
+named_insert vector_b 0.1 0.9 0.4
+OK
+
+# User retrieves the vector with the key "vector_a"
+get vector_a
+[0.5, 0.7, 0.2]
+
+# User calculates the cosine similarity between "vector_a" and "vector_b"
+vcosine vector_a vector_b
+Cosine Similarity: 0.8693
+
+# User finds the nearest neighbor of "vector_a" (k=2)
+knn vector_a 2
+ID: vector_a, Vector: [0.5, 0.7, 0.2]
+ID: vector_b, Vector: [0.1, 0.9, 0.4]
+
+# User performs element-wise addition of "vector_a" and "vector_b"
+vadd vector_a vector_b
+[0.6, 1.6, 0.6]
+
+# User scales "vector_a" by a factor of 2
+vscale vector_a 2.0
+[1.0, 1.4, 0.4]
+
+# User removes "vector_a" from the database
+remove vector_a
+OK
+
+# User attempts to retrieve "vector_a" again (expecting an error)
+get vector_a
+null
+
+# User exits the session
+quit
+Connection closed by foreign host.
+```
