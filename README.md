@@ -50,7 +50,7 @@ services:
 1. Clone the Vemcache repository:
 
 ```bash
-git clone https://github.com/yourusername/vemcache.git
+git clone https://github.com/faizchishtie/vemcache.git
 cd vemcache
 ```
 
