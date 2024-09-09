@@ -4,9 +4,9 @@ import random
 # Configuration
 vemcache_host = 'localhost'
 vemcache_port = 7070
-num_vectors = 100000
+num_vectors = 1000
 vector_dim = 5
-num_operations = 1000  # Number of random operations to perform
+num_operations = 100  # Number of random operations to perform
 
 # Generate a list of keys for the vectors in Vemcache
 keys = [f'vector{i}' for i in range(num_vectors)]

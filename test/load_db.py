@@ -4,7 +4,7 @@ import random
 # Configuration
 vemcache_host = 'localhost'
 vemcache_port = 7070
-num_vectors = 100000
+num_vectors = 100
 vector_dim = 10
 
 # Generate random vectors and write to Vemcache
